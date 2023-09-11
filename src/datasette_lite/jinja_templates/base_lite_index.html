@@ -172,7 +172,16 @@
   <script>
     processedParams.config_static = {{ config_static | tojson }};
   </script>
-  {% endblock add_templates%}
+  {% endblock add_templates %}
+
+  {% block default_metadata %}
+  <script>
+    processedParams.default_metadata = {
+      "about": "Datasette Explorer",
+      "about_url": "https://github.com/simonw/datasette-lite",
+    }
+  </script>
+  {% endblock %}
 
   <script>
     const datasetteWorker = new Worker("webworker.js");

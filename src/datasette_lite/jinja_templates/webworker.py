@@ -79,6 +79,7 @@ async def get_lite_response(ds, web_path: str) -> MiniResponse:
 async def load_datasette(
     install_urls: list[str],
     sqls: list[str],
+    default_metadata: dict[str, str],
     metadata_url: Optional[str],
     sources: list[Tuple[str, str]],
     memory_setting: str,
@@ -129,17 +130,16 @@ async def load_datasette(
             response = await pyfetch(sql_url)
             sql = await response.string()
             sqlite3.connect("data.db").executescript(sql)
-    metadata = {
-        "about": "Datasette Explorer",
-        "about_url": "https://github.com/simonw/datasette-lite",
-    }
+
+    metadata = {}
+    metadata.update(default_metadata)
 
     if metadata_url:
         response = await pyfetch(metadata_url)
         content = await response.string()
         from datasette.utils import parse_metadata
 
-        metadata = parse_metadata(content)
+        metadata.update(parse_metadata(content))
 
     # Import data from ?csv=URL CSV files/?json=URL JSON files
 

@@ -38,7 +38,7 @@ async function startDatasette(settings) {
     indexURL: "https://cdn.jsdelivr.net/pyodide/v0.23.2/full/",
     fullStdLib: true
   });
-  self.pyodide.globals.set("config_static", settings.config_static);
+  self.pyodide.globals.set("settings", settings);
   await pyodide.loadPackage('micropip', {messageCallback: log});
   await pyodide.loadPackage('ssl', {messageCallback: log});
   await pyodide.loadPackage('setuptools', {messageCallback: log}); // For pkg_resources
@@ -52,7 +52,18 @@ async function startDatasette(settings) {
     memory_setting = ${settings.memory ? 'True' : 'False'}
     data_to_load = ${JSON.stringify(toLoad)}
 
-    ds = await load_datasette(install_urls, sqls, metadata_url, sources, memory_setting, data_to_load, config_static.to_py())
+    ds = await load_datasette(
+          install_urls = install_urls,
+          sqls = sqls,
+          default_metadata = settings.default_metadata.to_py(),
+          metadata_url = metadata_url,
+          sources = sources,
+          memory_setting = memory_setting,
+          data_to_load = data_to_load,
+          config_static = settings.config_static.to_py()
+          )
+            
+    
     `);
     datasetteLiteReady();
   } catch (error) {
