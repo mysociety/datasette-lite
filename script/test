@@ -1,0 +1,5 @@
+#!/bin/bash
+
+python -m playright install
+python -m playright install_deps
+python -m pytest .
