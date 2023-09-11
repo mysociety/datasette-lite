@@ -19,9 +19,6 @@ class MiniResponse(NamedTuple):
 
 async def get_lite_response(ds, web_path: str) -> MiniResponse:
     potential_local_file = Path(web_path[1:])
-    print(
-        potential_local_file, potential_local_file.suffix, potential_local_file.exists()
-    )
     # seperate responses for css, js, and html
     if potential_local_file.suffix == ".css" and potential_local_file.exists():
         print("returning custom css")
