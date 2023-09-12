@@ -92,9 +92,15 @@
         console.log("processing mysoc data")
         var [repo, package_name, version] = mysocParam.split('/');
         mysocUrl = `https://pages.mysociety.org/${repo}/data/${package_name}/${version}/${package_name}.sqlite`;
+        datapackageUrl = `https://pages.mysociety.org/${repo}/data/${package_name}/${version}/datapackage.json`;
         processedParams.initialUrl = mysocUrl;
+        processedParams.metadataUrl = datapackageUrl;
         // set repo into
         document.getElementById("repo-info").innerHTML = `${repo} - ${package_name} - ${version}`;
+        // if no or empty hash, set to package_name
+        if (!location.hash) {
+            location.hash = package_name;
+        }
     }
 
 </script>

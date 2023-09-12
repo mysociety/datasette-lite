@@ -76,6 +76,56 @@ async def get_lite_response(ds, web_path: str) -> MiniResponse:
     return MiniResponse(response_code, content_type, text)
 
 
+def datapackage_to_metadata(datapackage_url: str, datapackage: dict) -> dict:
+    """
+    Convert a frictionless datapackage to datasette metadata
+    """
+
+    t = datapackage_url.split("/")
+    base_mysoc_url = "/".join(t[:4] + ["datasets"] + t[5:7])
+
+    metadata = {
+        "title": datapackage.get("title"),
+        "description": datapackage.get("description"),
+    }
+
+    for licence in datapackage.get("licenses", []):
+        metadata["license"] = licence["name"]
+        metadata["license_url"] = licence["path"]
+        break
+
+    def resource_to_table(resource: dict) -> Tuple[str, dict]:
+        resource_name = resource["name"]
+        description_html = resource.get("description", "")
+        columns = {
+            column["name"]: column["description"]
+            for column in resource["schema"]["fields"]
+        }
+        return resource_name, {
+            "title": resource["title"],
+            "about": "Info and download",
+            "about_url": base_mysoc_url + "#" + resource_name,
+            "description_html": description_html,
+            "columns": columns,
+        }
+
+    database = {
+        "about": "Info and download",
+        "about_url": base_mysoc_url,
+        "title": datapackage.get("title"),
+        "description_html": datapackage.get("description"),
+        "tables": dict(
+            resource_to_table(resource) for resource in datapackage["resources"]
+        ),
+    }
+
+    database["tables"]["data_description"] = {"hidden": True}
+
+    metadata["databases"] = {datapackage["name"]: database}
+
+    return metadata
+
+
 async def load_datasette(
     install_urls: list[str],
     default_metadata: dict[str, str],
@@ -145,9 +195,16 @@ async def load_datasette(
     if metadata_url:
         response = await pyfetch(metadata_url)
         content = await response.string()
-        from datasette.utils import parse_metadata
 
-        metadata.update(parse_metadata(content))
+        if metadata_url.endswith("datapackage.json"):
+            import json
+
+            content = json.loads(content)
+            metadata.update(datapackage_to_metadata(metadata_url, content))
+        else:
+            from datasette.utils import parse_metadata
+
+            metadata.update(parse_metadata(content))
 
     # Import data from ?csv=URL CSV files/?json=URL JSON files
 
