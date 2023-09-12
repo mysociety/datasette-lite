@@ -38,29 +38,28 @@ async function startDatasette(settings) {
     indexURL: "https://cdn.jsdelivr.net/pyodide/v0.23.2/full/",
     fullStdLib: true
   });
-  self.pyodide.globals.set("settings", settings);
+  self.pyodide.globals.set("_settings", settings);
+  self.pyodide.globals.set("_to_load", toLoad);
+  self.pyodide.globals.set("_sources", sources);
   await pyodide.loadPackage('micropip', {messageCallback: log});
   await pyodide.loadPackage('ssl', {messageCallback: log});
   await pyodide.loadPackage('setuptools', {messageCallback: log}); // For pkg_resources
   try {
     await self.pyodide.runPythonAsync(`{{ web_worker_py }}`);
     await self.pyodide.runPythonAsync(`    
-    install_urls = ${JSON.stringify(settings.installUrls)}
-    sqls = ${JSON.stringify(sources.filter(source => source[0] === "sql")[0]?.[1] || [])}
-    metadata_url = ${JSON.stringify(settings.metadataUrl || '')}
-    sources = ${JSON.stringify(sources.filter(source => ['csv', 'json', 'parquet'].includes(source[0])))}
-    memory_setting = ${settings.memory ? 'True' : 'False'}
-    data_to_load = ${JSON.stringify(toLoad)}
+    
+    settings = _settings.to_py()
+    to_load = _to_load.to_py()
+    sources = _sources.to_py()
 
     ds = await load_datasette(
-          install_urls = install_urls,
-          sqls = sqls,
-          default_metadata = settings.default_metadata.to_py(),
-          metadata_url = metadata_url,
+          install_urls = settings["installUrls"],
+          default_metadata = settings["default_metadata"],
+          metadata_url = settings.get("metadataUrl", None),
           sources = sources,
-          memory_setting = memory_setting,
-          data_to_load = data_to_load,
-          config_static = settings.config_static.to_py()
+          memory_setting = settings["memory"],
+          data_to_load = to_load,
+          config_static = settings["config_static"]
           )
             
     

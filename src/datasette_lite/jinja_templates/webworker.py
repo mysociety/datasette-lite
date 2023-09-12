@@ -78,14 +78,22 @@ async def get_lite_response(ds, web_path: str) -> MiniResponse:
 
 async def load_datasette(
     install_urls: list[str],
-    sqls: list[str],
     default_metadata: dict[str, str],
     metadata_url: Optional[str],
     sources: list[Tuple[str, str]],
-    memory_setting: str,
+    memory_setting: bool,
     data_to_load: list[Tuple[str, str]],
     config_static: dict[str, str],
 ):
+    # split up file sources
+    # get source url for first sql if present, otherwise empty list
+    sqls = next((source[1] for source in sources if source[0] == "sql"), [])
+
+    # limit to file sources
+    file_sources = [
+        source for source in sources if source[0] in ["csv", "json", "parquet"]
+    ]
+
     # Grab that fixtures.db database
 
     # write templates to internal filespace
@@ -143,14 +151,14 @@ async def load_datasette(
 
     # Import data from ?csv=URL CSV files/?json=URL JSON files
 
-    if sources:
+    if file_sources:
         await micropip.install("sqlite-utils==3.28")
         import sqlite_utils, json
         from sqlite_utils.utils import rows_from_file, TypeTracker, Format
 
         db = sqlite_utils.Database("data.db")
         table_names = set()
-        for source_type, urls in sources:
+        for source_type, urls in file_sources:
             for url in urls:
                 # Derive table name from URL
                 bit = url.split("/")[-1].split(".")[0].split("?")[0]
