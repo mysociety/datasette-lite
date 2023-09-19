@@ -1,4 +1,4 @@
-importScripts("https://cdn.jsdelivr.net/pyodide/v0.23.2/full/pyodide.js");
+importScripts("https://cdn.jsdelivr.net/pyodide/v0.24.0/full/pyodide.js");
 
 function log(line) {
   console.log({line})
@@ -34,16 +34,16 @@ async function startDatasette(settings) {
     toLoad.push(["content.db", "https://datasette.io/content.db"]);
   }
 
+  // 
+
   self.pyodide = await loadPyodide({
-    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.23.2/full/",
+    indexURL: "https://cdn.jsdelivr.net/pyodide/v0.24.0/full/",
+    packages: ["micropip", "setuptools", "ssl"],
     fullStdLib: true
   });
   self.pyodide.globals.set("_settings", settings);
   self.pyodide.globals.set("_to_load", toLoad);
   self.pyodide.globals.set("_sources", sources);
-  await pyodide.loadPackage('micropip', {messageCallback: log});
-  await pyodide.loadPackage('ssl', {messageCallback: log});
-  await pyodide.loadPackage('setuptools', {messageCallback: log}); // For pkg_resources
   try {
     await self.pyodide.runPythonAsync(`{{ web_worker_py }}`);
     await self.pyodide.runPythonAsync(`    
