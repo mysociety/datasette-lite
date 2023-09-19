@@ -26,6 +26,9 @@
         "**/templates/*.html": "jinja-html",
         "**/requirements{/**,*}.{txt,in}": "pip-requirements"
     },
+    "[jinja-html]": {
+        "editor.formatOnSave": false,
+    },
     "[markdown]": {
         "editor.quickSuggestions": {
             "comments": "on",
