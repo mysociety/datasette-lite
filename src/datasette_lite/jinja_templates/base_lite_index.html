@@ -314,6 +314,8 @@
     }
 
     let output = document.getElementById('output');
+    // if output is not null
+    if (output) {
     output.addEventListener('click', (ev => {
       var link = ev.srcElement.closest("a");
       if (link && link.href) {
@@ -348,6 +350,7 @@
         loadPath(`${action}?${qs}`);
       }
     }), true);
+    }
 
     async function checkUrl(url, contentTypes) {
       try {
@@ -387,9 +390,9 @@
     ];
 
     fileTypes.forEach((fileType) => {
-      document
-        .querySelector(`#load-custom button.${fileType.id}`)
-        .addEventListener("click", async function (ev) {
+      button = document.querySelector(`#load-custom button.${fileType.id}`)
+      if (button) {
+      button.addEventListener("click", async function (ev) {
           ev.preventDefault();
           let url = fixUrl(prompt(fileType.prompt));
           if (!url) {
@@ -407,7 +410,9 @@
             alert(`That ${fileType.param.toUpperCase()} could not be loaded`);
           }
         });
+      };
     });
+    
 
   </script>
 </body>
