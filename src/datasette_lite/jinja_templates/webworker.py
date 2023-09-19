@@ -49,7 +49,7 @@ async def get_lite_response(ds, web_path: str) -> MiniResponse:
         # if the line contains a link to a CSS file, grab that css file and add it as an inline stylesheet
         if 'rel="stylesheet"' in line:
             css_url = re.search(r'href="([^"]+)"', line).group(1)
-            if css_url.startswith("/-/"):
+            if css_url.startswith("/"):
                 css_response = cached_css.get(
                     css_url, await get_lite_response(ds, css_url)
                 )
