@@ -1,6 +1,7 @@
 import jinja2
 from pathlib import Path
 import json
+import shutil
 
 template_path = Path(__file__).parent / "jinja_templates"
 lite_config_path = Path(__file__).parent / "lite_config"
@@ -22,7 +23,11 @@ def get_template_folder(template_path: Path) -> dict[str, str]:
     iteratively, for all files in template_path, create a dictionary of path to contents
     """
     result = {}
+    static_dir = template_path / "static"
     for path in template_path.glob("**/*"):
+        if "static" in path.parts:
+            continue
+
         if path.is_file():
             result[str(path.relative_to(template_path))] = path.read_text()
     return result
@@ -52,6 +57,11 @@ def build_index(dest_path: Path, customisation_path: Path):
 
     result = index_template.render(context)
     (dest_path / "index.html").write_text(result)
+
+    # copy static files
+    static_dir = customisation_path / "static"
+    if static_dir.exists():
+        shutil.copytree(static_dir, dest_path / "static", dirs_exist_ok=True)
 
 
 def build_all(dest_path: Path, customisation_path: Path):

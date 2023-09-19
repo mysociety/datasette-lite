@@ -53,7 +53,7 @@
 {% block css_head %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;700&display=swap" rel="stylesheet">
 <style>
     h1,
     p,
@@ -81,6 +81,19 @@
 <p>Preparing the data will take a few moments.</p>
 <p id="repo-info"></p>
 {% endblock above_textarea %}
+
+  {% block default_metadata %}
+  <script>
+    processedParams.default_metadata = {
+      "about": "Datasette Explorer",
+      "about_url": "https://github.com/simonw/datasette-lite",
+      "extra_css_urls": [
+      "/css/mysoc.css"
+      ]
+    }
+  </script>
+  {% endblock %}
+
 
 {% block post_params %}
 
