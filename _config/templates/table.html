@@ -131,7 +131,7 @@
 {% endif %}
 
 <h2>Data</h2>
-<p class="export-links">This data as {% for name, url in renderers.items() %}<a href="{{ url }}">{{ name }}</a>{{ ", " if not loop.last }}{% endfor %}{% if display_rows %}, <a href="{{ url_csv }}">CSV</a> (<a href="#export">advanced</a>){% endif %}</p>
+<p class="export-links">This data as {% for name, url in renderers.items() %}<a href="{{ url }}">{{ name }}</a>{{ ", " if not loop.last }}{% endfor %}{% if display_rows %}, <a href="{{ url_csv }}">CSV</a>{% endif %}</p>
 
 {% if suggested_facets %}
     {% include "_suggested_facets.html" %}
@@ -161,18 +161,6 @@
                 <a href="{{ append_querystring(renderers['json'], '_shape=object') }}">object</a>
             {% endif %}
         </p>
-        <form action="{{ url_csv_path }}" method="get">
-            <p>
-                CSV options:
-                <label><input type="checkbox" name="_dl"> download file</label>
-                {% if expandable_columns %}<label><input type="checkbox" name="_labels" checked> expand labels</label>{% endif %}
-                {% if next_url and settings.allow_csv_stream %}<label><input type="checkbox" name="_stream"> stream all rows</label>{% endif %}
-                <input type="submit" value="Export CSV">
-                {% for key, value in url_csv_hidden_args %}
-                    <input type="hidden" name="{{ key }}" value="{{ value }}">
-                {% endfor %}
-            </p>
-        </form>
     </div>
 {% endif %}
 

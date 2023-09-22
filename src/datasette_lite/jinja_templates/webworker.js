@@ -90,7 +90,8 @@ self.onmessage = async (event) => {
     let [status, contentType, text] = await self.pyodide.runPythonAsync(
       `get_lite_response(ds, ${JSON.stringify(event.data.path)})`
     );
-    self.postMessage({status, contentType, text});
+    path = event.data.path;
+    self.postMessage({status, contentType, text, path});
   } catch (error) {
     self.postMessage({error: error.message});
   }

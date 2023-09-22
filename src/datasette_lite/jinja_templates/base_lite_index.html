@@ -213,6 +213,30 @@
         html = event.data.text;
       } else if (/^application\/json/.exec(event.data.contentType)) {
         html = `<pre style="padding: 0.5em">${escapeHtml(JSON.stringify(JSON.parse(event.data.text), null, 4))}</pre>`;
+      } else if (/^text\/plain/.exec(event.data.contentType)) {
+
+        // For the CSV download we need to create a Blob and then a URL
+        const blob = new Blob([event.data.text], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+
+        const cleanString = event.data.path.split('?')[0];
+
+        // Split the string by '/'
+        const parts = cleanString.split('/');
+
+        // Filter the parts to find the last one that ends with '.csv'
+        const csvPart = parts.reverse().find(part => part.endsWith('.csv'));
+
+        a.href = url;
+        a.download = csvPart || 'data.csv';
+        a.click();
+
+        // Clean up by revoking the Blob URL after the download link has been clicked
+        URL.revokeObjectURL(url);
+        return false;
+
+
       } else {
         html = `<pre style="padding: 0.5em">${escapeHtml(event.data.text)}</pre>`;
       }
