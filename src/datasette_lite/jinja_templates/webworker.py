@@ -42,7 +42,6 @@ async def get_lite_response(ds, web_path: str) -> MiniResponse:
             response.headers.get("content-type"),
             response.text,
         ]
-        print("called", web_path, response.status_code)
 
     final_lines = []
     for line in text.splitlines():
