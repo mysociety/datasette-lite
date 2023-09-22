@@ -760,12 +760,12 @@ blockquote {
     border-radius: 0 0 .75em .75em;
     background-size: 22px;
     background-position: 11px 7px;
-    background-image: url(/static/img/mysociety-bloom.png)
+    background-image: url(static/img/mysociety-bloom.png)
 }
 
 @media(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi) {
     .ms-header__logo {
-        background-image: url(/static/img/mysociety-bloom@2.png)
+        background-image: url(static/img/mysociety-bloom@2.png)
     }
 }
 
@@ -775,7 +775,7 @@ blockquote {
         background-position: 16px 10px;
         background-size: 93px 19px;
         background-repeat: no-repeat;
-        background-image: url(/static/img/mysociety-logo.png);
+        background-image: url(static/img/mysociety-logo.png);
         width: 125px;
         height: 39px
     }
@@ -783,7 +783,7 @@ blockquote {
 
 @media(min-width:30em) and (-webkit-min-device-pixel-ratio:1.5), (min-width:30em) and (min-resolution:144dpi) {
     .ms-header__logo {
-        background-image: url(/static/img/mysociety-logo@2.png)
+        background-image: url(static/img/mysociety-logo@2.png)
     }
 }
 
@@ -1091,7 +1091,7 @@ blockquote {
 
 dl.dir-structure,
 dl.dir-structure dl {
-    background: url(/static/img/tree-last.png) no-repeat;
+    background: url(static/img/tree-last.png) no-repeat;
     background-position: 0 -29px;
     padding: 0 0 0 21px;
     margin: .5em 0 0 0
@@ -1102,14 +1102,14 @@ dl.dir-structure {
 }
 
 dl.dir-structure dt {
-    background: url(/static/img/tree-branch.png) no-repeat;
+    background: url(static/img/tree-branch.png) no-repeat;
     background-position: 0 0;
     padding: 20px 0 0 28px;
     margin: 0
 }
 
 dl.dir-structure dd {
-    background: url(/static/img/tree-upright.png) repeat-y;
+    background: url(static/img/tree-upright.png) repeat-y;
     padding: 0 0 0 40px;
     margin: 0
 }
@@ -1120,7 +1120,7 @@ dl.dir-structure dd p {
 }
 
 dl.dir-structure dt.last {
-    background: url(/static/img/tree-last.png) no-repeat
+    background: url(static/img/tree-last.png) no-repeat
 }
 
 dl.dir-structure dd.last {
@@ -1589,14 +1589,14 @@ table.table td {
 
 .mysoc-footer__org__logo--mysociety {
     width: 152px;
-    background: transparent url(/static/img/mysoc-footer/logo-mysociety.png) 0 0 no-repeat;
+    background: transparent url(static/img/mysoc-footer/logo-mysociety.png) 0 0 no-repeat;
     background-size: 152px 32px;
-    background-image: url(/static/img/mysoc-footer/logo-mysociety.svg), none
+    background-image: url(static/img/mysoc-footer/logo-mysociety.svg), none
 }
 
 @media(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi) {
     .mysoc-footer__org__logo--mysociety {
-        background-image: url(/static/img/mysoc-footer/logo-mysociety@2x.png)
+        background-image: url(static/img/mysoc-footer/logo-mysociety@2x.png)
     }
 }
 
@@ -1633,38 +1633,38 @@ table.table td {
 }
 
 .mysoc-footer__badge--github {
-    background: transparent url(/static/img/mysoc-footer/icon-github.png) 0 0 no-repeat;
+    background: transparent url(static/img/mysoc-footer/icon-github.png) 0 0 no-repeat;
     background-size: 32px 32px;
-    background-image: url(/static/img/mysoc-footer/icon-github.svg), none
+    background-image: url(static/img/mysoc-footer/icon-github.svg), none
 }
 
 @media(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi) {
     .mysoc-footer__badge--github {
-        background-image: url(/static/img/mysoc-footer/icon-github@2x.png)
+        background-image: url(static/img/mysoc-footer/icon-github@2x.png)
     }
 }
 
 .mysoc-footer__badge--twitter {
-    background: transparent url(/static/img/mysoc-footer/icon-twitter.png) 0 0 no-repeat;
+    background: transparent url(static/img/mysoc-footer/icon-twitter.png) 0 0 no-repeat;
     background-size: 32px 32px;
-    background-image: url(/static/img/mysoc-footer/icon-twitter.svg), none
+    background-image: url(static/img/mysoc-footer/icon-twitter.svg), none
 }
 
 @media(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi) {
     .mysoc-footer__badge--twitter {
-        background-image: url(/static/img/mysoc-footer/icon-twitter@2x.png)
+        background-image: url(static/img/mysoc-footer/icon-twitter@2x.png)
     }
 }
 
 .mysoc-footer__badge--facebook {
-    background: transparent url(/static/img/mysoc-footer/icon-facebook.png) 0 0 no-repeat;
+    background: transparent url(static/img/mysoc-footer/icon-facebook.png) 0 0 no-repeat;
     background-size: 32px 32px;
-    background-image: url(/static/img/mysoc-footer/icon-facebook.svg), none
+    background-image: url(static/img/mysoc-footer/icon-facebook.svg), none
 }
 
 @media(-webkit-min-device-pixel-ratio:1.5), (min-resolution:144dpi) {
     .mysoc-footer__badge--facebook {
-        background-image: url(/static/img/mysoc-footer/icon-facebook@2x.png)
+        background-image: url(static/img/mysoc-footer/icon-facebook@2x.png)
     }
 }
 
@@ -2962,15 +2962,15 @@ textarea,
 
 .mysoc-footer__org__logo--mysociety {
     width: 152px;
-    background: transparent url("/static/img/mysoc-footer/logo-mysociety.png") 0 0 no-repeat;
+    background: transparent url("static/img/mysoc-footer/logo-mysociety.png") 0 0 no-repeat;
     background-size: 152px 32px;
-    background-image: url("/static/img/mysoc-footer/logo-mysociety.svg"), none
+    background-image: url("static/img/mysoc-footer/logo-mysociety.svg"), none
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5),
 (min-resolution: 144dpi) {
     .mysoc-footer__org__logo--mysociety {
-        background-image: url("/static/img/mysoc-footer/logo-mysociety@2x.png")
+        background-image: url("static/img/mysoc-footer/logo-mysociety@2x.png")
     }
 }
 
@@ -3007,41 +3007,41 @@ textarea,
 }
 
 .mysoc-footer__badge--github {
-    background: transparent url("/static/img/mysoc-footer/icon-github.png") 0 0 no-repeat;
+    background: transparent url("static/img/mysoc-footer/icon-github.png") 0 0 no-repeat;
     background-size: 32px 32px;
-    background-image: url("/static/img/mysoc-footer/icon-github.svg"), none
+    background-image: url("static/img/mysoc-footer/icon-github.svg"), none
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5),
 (min-resolution: 144dpi) {
     .mysoc-footer__badge--github {
-        background-image: url("/static/img/mysoc-footer/icon-github@2x.png")
+        background-image: url("static/img/mysoc-footer/icon-github@2x.png")
     }
 }
 
 .mysoc-footer__badge--twitter {
-    background: transparent url("/static/img/mysoc-footer/icon-twitter.png") 0 0 no-repeat;
+    background: transparent url("static/img/mysoc-footer/icon-twitter.png") 0 0 no-repeat;
     background-size: 32px 32px;
-    background-image: url("/static/img/mysoc-footer/icon-twitter.svg"), none
+    background-image: url("static/img/mysoc-footer/icon-twitter.svg"), none
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5),
 (min-resolution: 144dpi) {
     .mysoc-footer__badge--twitter {
-        background-image: url("/static/img/mysoc-footer/icon-twitter@2x.png")
+        background-image: url("static/img/mysoc-footer/icon-twitter@2x.png")
     }
 }
 
 .mysoc-footer__badge--facebook {
-    background: transparent url("/static/img/mysoc-footer/icon-facebook.png") 0 0 no-repeat;
+    background: transparent url("static/img/mysoc-footer/icon-facebook.png") 0 0 no-repeat;
     background-size: 32px 32px;
-    background-image: url("/static/img/mysoc-footer/icon-facebook.svg"), none
+    background-image: url("static/img/mysoc-footer/icon-facebook.svg"), none
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5),
 (min-resolution: 144dpi) {
     .mysoc-footer__badge--facebook {
-        background-image: url("/static/img/mysoc-footer/icon-facebook@2x.png")
+        background-image: url("static/img/mysoc-footer/icon-facebook@2x.png")
     }
 }
 
