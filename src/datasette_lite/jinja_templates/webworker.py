@@ -75,13 +75,10 @@ async def get_lite_response(ds, web_path: str) -> MiniResponse:
     return MiniResponse(response_code, content_type, text)
 
 
-def datapackage_to_metadata(datapackage_url: str, datapackage: dict) -> dict:
+def datapackage_to_metadata(datapackage: dict) -> dict:
     """
     Convert a frictionless datapackage to datasette metadata
     """
-
-    t = datapackage_url.split("/")
-    base_mysoc_url = "/".join(t[:4] + ["datasets"] + t[5:7])
 
     metadata = {
         "title": datapackage.get("title"),
@@ -100,17 +97,16 @@ def datapackage_to_metadata(datapackage_url: str, datapackage: dict) -> dict:
             column["name"]: column["description"]
             for column in resource["schema"]["fields"]
         }
-        return resource_name, {
+        custom_table = resource.get("custom", {}).get("datasette", {})
+        table_data = {
             "title": resource["title"],
-            "about": "Info and download",
-            "about_url": base_mysoc_url + "#" + resource_name,
             "description_html": description_html,
             "columns": columns,
         }
+        table_data.update(custom_table)
+        return resource_name, table_data
 
     database = {
-        "about": "Info and download",
-        "about_url": base_mysoc_url,
         "title": datapackage.get("title"),
         "description_html": datapackage.get("description"),
         "tables": dict(
@@ -118,7 +114,8 @@ def datapackage_to_metadata(datapackage_url: str, datapackage: dict) -> dict:
         ),
     }
 
-    database["tables"]["data_description"] = {"hidden": True}
+    database_level_custom = datapackage.get("custom", {}).get("datasette", {})
+    database.update(database_level_custom)
 
     metadata["databases"] = {datapackage["name"]: database}
 
@@ -199,7 +196,7 @@ async def load_datasette(
             import json
 
             content = json.loads(content)
-            metadata.update(datapackage_to_metadata(metadata_url, content))
+            metadata.update(datapackage_to_metadata(content))
         else:
             from datasette.utils import parse_metadata
 
