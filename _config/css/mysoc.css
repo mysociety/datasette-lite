@@ -234,6 +234,14 @@ table {
     position: relative
 }
 
+.page {
+    max-width: none
+}
+
+.data-desc {
+    max-width: 63.333333333em;
+}
+
 .unstyled-list,
 .site-nav ul,
 .nav-tabs,

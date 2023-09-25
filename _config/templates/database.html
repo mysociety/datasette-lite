@@ -10,7 +10,9 @@
 {% block body_class %}db db-{{ database|to_css_class }}{% endblock %}
 
 {% block content %}
-<div style="border-color: #{{ database_color }}">
+
+<div class="container">
+<div>
     <h1>{{ metadata.title or database }}{% if private %} 🔒{% endif %}</h1>
     {% set links = database_actions() %}{% if links %}
     <details class="actions-menu-links details-menu">
@@ -118,5 +120,5 @@
 {% endif %}
 
 {% include "_codemirror_foot.html" %}
-
+</div>
 {% endblock %}

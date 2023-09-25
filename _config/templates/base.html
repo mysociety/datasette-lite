@@ -27,14 +27,20 @@
         <div class="container">
             <h1>
               {% block title_link %}
-                <a href="/{{ database }}/">Datasette Explorer</a>
+              {% if database %}
+              {% set first_database = database %}
+              {% else %}
+              {% set first_database = databases[0].name %}
+
+              {% endif %}
+                <a href="/{{ first_database }}/">Datasette Explorer</a>
               {% endblock %}
             </h1>
             <div class="nav-position">
                 <nav role="navigation" class="site-nav nav-collapse">
                     <ul>
                       {% block top_links %}
-                      <li><a href="/about">About</a></li>
+                      <li><a href="/">About</a></li>
                       {% endblock %}
                     </ul>
                 </nav>
